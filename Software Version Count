@@ -1,4 +1,0 @@
- InstalledSoftware
-| summarize countif(ProductName contains '_SoftwareTitle_') by ProductName, ProductVersion, SoftwareCode
-| where (countif_ > 0)
-| order by ProductName, ProductVersion
