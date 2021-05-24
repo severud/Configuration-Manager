@@ -1,0 +1,26 @@
+If ((Get-ItemProperty -Path "HKLM:\SOFTWARE\WOW6432Node\Epic Systems Corporation\93HotFix\30PRDUWASHING\{E0558782-4CA8-4427-811F-F16518C1BD3C}" -ErrorAction SilentlyContinue).PatchGuid -like "{DC12D086-8E7E-4256-B839-58AE3864D0A7}")
+    {
+    If (Test-Path -Path "C:\Epic\Bin\9.3\Epic Print Service\EpicBCAClient.config.xml" -PathType Leaf)
+        {
+        [xml]$BCAClientXML = Get-Content "C:\Epic\Bin\9.3\Epic Print Service\EpicBCAClient.config.xml" -ErrorAction SilentlyContinue
+        If ($BCAClientXML.EpicBCAClient.InterconnectURL -like "https://epic-bca-poc.medical.washington.edu/Interconnect-bca-poc")
+            {
+            If (Test-Path -Path "C:\Users\Public\Desktop\BCA-POC.lnk" -PathType Leaf)
+                {
+                Write-Host "Installed"
+                }
+            Else
+                {
+                }
+            }
+        Else
+            {
+            }
+        }
+    Else
+        {
+        }
+    }
+Else
+    {
+    }
