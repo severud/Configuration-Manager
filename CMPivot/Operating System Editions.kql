@@ -1,26 +1,22 @@
-If ((Get-ItemProperty -Path "HKLM:\SOFTWARE\WOW6432Node\Epic Systems Corporation\93HotFix\30PRDUWASHING\{E0558782-4CA8-4427-811F-F16518C1BD3C}" -ErrorAction SilentlyContinue).PatchGuid -like "{DC12D086-8E7E-4256-B839-58AE3864D0A7}")
-    {
-    If (Test-Path -Path "C:\Epic\Bin\9.3\Epic Print Service\EpicBCAClient.config.xml" -PathType Leaf)
-        {
-        [xml]$BCAClientXML = Get-Content "C:\Epic\Bin\9.3\Epic Print Service\EpicBCAClient.config.xml" -ErrorAction SilentlyContinue
-        If ($BCAClientXML.EpicBCAClient.InterconnectURL -like "https://epic-bca-poc.medical.washington.edu/Interconnect-bca-poc")
-            {
-            If (Test-Path -Path "C:\Users\Public\Desktop\BCA-POC.lnk" -PathType Leaf)
-                {
-                Write-Host "Installed"
-                }
-            Else
-                {
-                }
-            }
-        Else
-            {
-            }
-        }
-    Else
-        {
-        }
-    }
-Else
-    {
-    }
+OperatingSystem 
+ | where ProductType == 1 // filter on workstations 
+ | project Edition=case( 
+     BuildNumber == '2600', 'Windows XP', 
+     BuildNumber like '760%', 'Windows 7', 
+     BuildNumber == '9600', 'Windows 8', 
+     BuildNumber == '10240', 'Windows 10 1507', 
+     BuildNumber == '10586', 'Windows 10 1511', 
+     BuildNumber == '14393', 'Windows 10 1607', 
+     BuildNumber == '15063', 'Windows 10 1703', 
+     BuildNumber == '16299', 'Windows 10 1709', 
+     BuildNumber == '17134', 'Windows 10 1803', 
+     BuildNumber == '17763', 'Windows 10 1809', 
+     BuildNumber == '18362', 'Windows 10 1903', 
+     BuildNumber == '18363', 'Windows 10 1909', 
+     BuildNumber == '19041', 'Windows 10 2004',
+     BuildNumber == '19042', 'Windows 10 20H2',
+     BuildNumber == '19043', 'Windows 10 21H1',
+     BuildNumber > '19043', 'Windows 10 vNext', 
+     BuildNumber) 
+ | summarize count() by Edition 
+ | order by Edition desc
