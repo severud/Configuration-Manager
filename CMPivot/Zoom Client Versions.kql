@@ -1,3 +1,6 @@
+// https://support.zoom.us/hc/en-us/articles/201361953-Release-notes-for-Windows
+// https://github.com/severud/Configuration-Manager/blob/master/CMPivot/Zoom%20Client%20Versions
+
 InstalledSoftware
 | where (Publisher == 'zoom')
 | where (ProductName == 'zoom')
