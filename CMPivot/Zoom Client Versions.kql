@@ -5,6 +5,7 @@ InstalledSoftware
 | where (Publisher == 'zoom')
 | where (ProductName == 'zoom')
 | project ZoomVersion=case( 
+	ProductVersion == '5.6.1016', '5.6.7',
 	ProductVersion == '5.6.961', '5.6.6',
 	ProductVersion == '5.6.823', '5.6.5',
 	ProductVersion == '5.6.799', '5.6.4',
