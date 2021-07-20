@@ -1,0 +1,10 @@
+Processor
+| where (Manufacturer == 'GenuineIntel')
+| project Device, Name, Win11CompatibleCPU = case( 
+  (Name contains 'i5-8'), 'Compatible', 
+  (Name contains 'i7-11'), 'Compatible', 
+  'NotCompatible' )
+| order by Device asc
+| where (Win11CompatibleCPU == 'NotCompatible')
+| summarize count() by Name
+| order by count_ desc
