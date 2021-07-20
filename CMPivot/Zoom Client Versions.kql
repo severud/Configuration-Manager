@@ -1,10 +1,14 @@
 // https://support.zoom.us/hc/en-us/articles/201361953-Release-notes-for-Windows
 // https://github.com/severud/Configuration-Manager/blob/master/CMPivot/Zoom%20Client%20Versions
+// Zoom Client Version - Install Count
 
 InstalledSoftware
 | where (Publisher == 'zoom')
 | where (ProductName == 'zoom')
 | project ZoomVersion=case( 
+	ProductVersion == '5.7.745', '5.7.3',
+	ProductVersion == '5.7.543', '5.7.1',
+	ProductVersion == '5.7.522', '5.7',
 	ProductVersion == '5.6.1016', '5.6.7',
 	ProductVersion == '5.6.961', '5.6.6',
 	ProductVersion == '5.6.823', '5.6.5',
