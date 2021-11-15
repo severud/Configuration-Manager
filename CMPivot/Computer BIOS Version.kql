@@ -1,0 +1,5 @@
+ComputerSystem
+| project Device, Manufacturer, Model
+| join (OperatingSystem | project Device, OSVersion=Caption)
+| join (Bios | project Device, BIOS=SMBIOSBIOSVersion)
+| order by Model
