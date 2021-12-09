@@ -1,0 +1,5 @@
+// Softawre
+InstalledSoftware
+ | summarize dcount( Device ) by Publisher, ProductName, ProductVersion
+ | order by ProductName asc
+ | order by Publisher asc
