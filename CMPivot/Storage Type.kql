@@ -1,0 +1,13 @@
+// Storage
+PhysicalDisk 
+| where MediaType == 3 or MediaType == 4
+| project DriveType=case( tostring(MediaType) contains '3', 'SSD (SATA or NVMe)', 
+tostring(MediaType) contains '4', 'HDD', 
+tostring(MediaType) ),
+Device,
+AllocatedSize/1000000000,
+FriendlyName,
+Connection=BusType
+| summarize NumberOfDevices=count() by DriveType
+| order by NumberOfDevices asc
+| render barchart with (title='Storage Types', xtitle='Type',ytitle='Quantity')
