@@ -1,0 +1,9 @@
+// Bitlocker Boot Drive Status
+BitLocker
+| where DriveLetter contains 'C'
+| project Device, DriveLetter, Status=case(
+tostring(ProtectionStatus) == '0', 'Disabled',
+tostring(ProtectionStatus) == '1', 'Enabled',
+tostring(ProtectionStatus))
+| summarize count() by Status
+| render barchart with (title='Bitlocker Protection Status', xtitle='Encryption Status',ytitle='Number of Computers')
