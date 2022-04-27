@@ -1,11 +1,21 @@
 // https://support.zoom.us/hc/en-us/articles/201361953-Release-notes-for-Windows
-// https://github.com/severud/Configuration-Manager/blob/master/CMPivot/Zoom%20Client%20Versions
 // Zoom Client Versions
-
 InstalledSoftware
 | where (Publisher == 'zoom')
-| where (ProductName == 'zoom')
-| project ZoomVersion=case( 
+| where (ProductName == 'Zoom(32bit)') or (ProductName == 'Zoom(64bit)') or (ProductName == 'Zoom')
+| project Device, 
+	ZoomVersion=case( 
+	ProductVersion == '5.10.5035', '5.10.4',
+	ProductVersion == '5.10.4851', '5.10.3',
+	ProductVersion == '5.10.4420', '5.10.1',
+	ProductVersion == '5.10.4306', '5.10.0',
+	ProductVersion == '5.9.3931', '5.9.7',
+	ProductVersion == '5.9.3799', '5.9.6',
+	ProductVersion == '5.9.3169', '5.9.3',
+	ProductVersion == '5.9.2581', '5.9.1',
+	ProductVersion == '5.9.2481', '5.9.0',
+	ProductVersion == '5.8.2058', '5.8.7',
+	ProductVersion == '5.8.2048', '5.8.6',
 	ProductVersion == '5.8.1736', '5.8.4',
 	ProductVersion == '5.8.1581', '5.8.3',
 	ProductVersion == '5.8.1435', '5.8.1',
@@ -27,6 +37,7 @@ InstalledSoftware
 	ProductVersion == '5.6.617', '5.6.2',
 	ProductVersion == '5.6.1',   '5.6.1',
 	ProductVersion == '5.6.0',   '5.6.0',
+	ProductVersion == '5.5.12494', '5.5.2',
 	ProductVersion)
 | summarize count() by ZoomVersion
 | order by ZoomVersion desc
