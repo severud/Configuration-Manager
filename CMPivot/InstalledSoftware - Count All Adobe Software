@@ -1,0 +1,6 @@
+// InstalledSoftware - Count All Adobe Software
+InstalledSoftware
+| where (ProductName contains 'adobe')
+| project Device, ProductName, ProductVersion
+| summarize Count=count() by ProductName
+| order by ProductName
