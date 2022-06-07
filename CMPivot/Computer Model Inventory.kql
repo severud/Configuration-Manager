@@ -1,0 +1,7 @@
+// Computer Model Inventory
+ComputerSystem
+| project Device, Manufacturer, Model, UserName
+| join (OperatingSystem | project Device, OSVersion=Caption)
+| join (Bios | project Device, BIOS=SMBIOSBIOSVersion)
+| summarize Count=count() by Manufacturer, Model
+| order by Manufacturer asc, Model asc
