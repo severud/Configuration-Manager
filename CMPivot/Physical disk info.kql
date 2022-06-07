@@ -1,0 +1,21 @@
+// Physical disk info
+PhysicalDisk
+| project Device, 
+          FriendlyName,
+          DriveType=case( 
+             tostring(MediaType) == '3', 'HDD',
+             tostring(MediaType) == '4', 'SSD',
+             tostring(MediaType) ),
+          ConnectionType=case( 
+             tostring(BusType) == '7', 'USB',
+             tostring(BusType) == '8', 'RAID',
+             tostring(BusType) == '11', 'Serial ATA (SATA)',
+             tostring(BusType) == '17', 'NVMe',
+             tostring(BusType) ),
+          SerialNumber,
+          Capacity_GB=(Size/1000000000),
+          Alocated_Size_GB=(AllocatedSize/1000000000),
+          FirmwareVersion,
+          LogicalSectorSize,
+          PhysicalSectorSize,
+          PhysicalLocation
