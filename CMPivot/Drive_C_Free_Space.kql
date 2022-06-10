@@ -1,0 +1,7 @@
+// Free space drive C
+Volume
+| where DriveLetter contains 'C'
+| project Device, Size_GB=(Capacity/1000), Free_Space_GB=(FreeSpace/1000), Label, FileSystem, SerialNumber
+| join (OperatingSystem | project Device, OSVersion=Caption, BuildNumber)
+| join (Bios | project Device, BIOS=SMBIOSBIOSVersion)
+| order by Free_Space_GB asc
