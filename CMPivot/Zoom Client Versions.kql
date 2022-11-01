@@ -1,43 +1,37 @@
-// https://support.zoom.us/hc/en-us/articles/201361953-Release-notes-for-Windows
 // Zoom Client Versions
+//
+// Release notes for Windows
+// https://support.zoom.us/hc/en-us/articles/201361953-Release-notes-for-Windows
+//
+// Zoom Software Quarterly Lifecycle Policy
+// https://support.zoom.us/hc/en-us/articles/360059429231-Zoom-Software-Quarterly-Lifecycle-Policy
+//
+
 InstalledSoftware
 | where (Publisher == 'zoom')
-| where (ProductName == 'Zoom(32bit)') or (ProductName == 'Zoom(64bit)') or (ProductName == 'Zoom')
-| project Device, 
+| where (ProductName like 'Zoom(%') or (ProductName == 'Zoom')
+| project Device, ProductName, 
 	ZoomVersion=case( 
-	ProductVersion == '5.10.5035', '5.10.4',
-	ProductVersion == '5.10.4851', '5.10.3',
-	ProductVersion == '5.10.4420', '5.10.1',
-	ProductVersion == '5.10.4306', '5.10.0',
-	ProductVersion == '5.9.3931', '5.9.7',
-	ProductVersion == '5.9.3799', '5.9.6',
-	ProductVersion == '5.9.3169', '5.9.3',
-	ProductVersion == '5.9.2581', '5.9.1',
-	ProductVersion == '5.9.2481', '5.9.0',
-	ProductVersion == '5.8.2058', '5.8.7',
-	ProductVersion == '5.8.2048', '5.8.6',
-	ProductVersion == '5.8.1736', '5.8.4',
-	ProductVersion == '5.8.1581', '5.8.3',
-	ProductVersion == '5.8.1435', '5.8.1',
-	ProductVersion == '5.8.1324', '5.8',
-	ProductVersion == '5.7.1247', '5.7.8',
-	ProductVersion == '5.7.1105', '5.7.7',
-	ProductVersion == '5.7.1055', '5.7.6',
-	ProductVersion == '5.7.1020', '5.7.5',
-	ProductVersion == '5.7.939', '5.7.5',
-	ProductVersion == '5.7.804', '5.7.4',
-	ProductVersion == '5.7.745', '5.7.3',
-	ProductVersion == '5.7.543', '5.7.1',
-	ProductVersion == '5.7.522', '5.7',
-	ProductVersion == '5.6.1016', '5.6.7',
-	ProductVersion == '5.6.961', '5.6.6',
-	ProductVersion == '5.6.823', '5.6.5',
-	ProductVersion == '5.6.799', '5.6.4',
-	ProductVersion == '5.6.751', '5.6.3',
-	ProductVersion == '5.6.617', '5.6.2',
-	ProductVersion == '5.6.1',   '5.6.1',
-	ProductVersion == '5.6.0',   '5.6.0',
-	ProductVersion == '5.5.12494', '5.5.2',
+	ProductVersion == '5.12.9638', '5.12.3',
+	ProductVersion == '5.12.9281', '5.12.2',
+	ProductVersion == '5.12.8964', '5.12.1',
+	ProductVersion == '5.11.8200', '5.11',
+	ProductVersion == '5.11.8040', '5.11',
+	ProductVersion == '5.11.7185', '5.11',
+	ProductVersion == '5.11.6602', '5.11',
+	ProductVersion == '5.10.6120', '5.10',
+	ProductVersion == '5.10.5889', '5.10',
+	ProductVersion == '5.10.5263', '5.10',
+	ProductVersion == '5.10.5035', '5.10',
+	ProductVersion == '5.10.4851', '5.10',
+	ProductVersion == '5.10.4420', '5.10',
+	ProductVersion == '5.10.4306', '5.10',
+	ProductVersion == '5.9.3931', '5.9',
+	ProductVersion == '5.9.3799', '5.9',
+	ProductVersion == '5.9.3169', '5.9',
+	ProductVersion == '5.9.2581', '5.9',
+	ProductVersion == '5.9.2481', '5.9',
+	ProductVersion < '5.8.6',   'EoL',
 	ProductVersion)
-| summarize count() by ZoomVersion
+| summarize Deployments=count() by ZoomVersion
 | order by ZoomVersion desc
