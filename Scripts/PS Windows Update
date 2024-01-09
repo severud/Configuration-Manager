@@ -1,0 +1,11 @@
+# Windows Update
+$PSDefaultParameterValues['Out-File:Encoding'] = 'Ascii'
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Force
+
+Install-PackageProvider -Name NuGet -Force
+
+Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+
+Install-Module PSWindowsUpdate
+Import-Module PSWindowsUpdate
+Install-WindowsUpdate -MicrosoftUpdate -AcceptAll
