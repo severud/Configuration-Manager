@@ -1,0 +1,25 @@
+<#
+.Synopsis
+   Disable Mapped Drive Disconnect
+.DESCRIPTION
+   Edits the registry to disable mapped drive disconnect timeout and set it to keep connected. This script was designed to work through the Script function of MECM.
+.EXAMPLE
+   disable_mapped_drive_disconnect.ps1
+.INPUTS
+   None
+.OUTPUTS
+   None
+.NOTES
+   Written by Charlize Veritas for the University of Washington at Bothell
+#>
+
+# Set autodisconnect in HKLM
+Try {New-ItemProperty -Path Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\lanmanserver\parameters -Name autodisconnect -Value 0xffffffff -PropertyType DWORD -Force | Out-Null}
+Catch {Write-Host "Failed to set autodisconnect registry value: $($_.Exception.Message)"}
+
+# Set KeepConn in HLKM
+Try {New-ItemProperty -Path Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\lanmanworkstation\parameters -Name KeepConn -Value 65535 -PropertyType DWORD -Force | Out-Null}
+Catch {Write-Host "Failed to set KeepConn registry value: $($_.Exception.Message)"}
+
+# Return Result
+If ($error.Count -eq 0) {Write-Host "Success"}
