@@ -1,0 +1,5 @@
+$wshShell = New-Object -ComObject "WScript.Shell"
+$urlShortcut = $wshShell.CreateShortcut((Join-Path $wshShell.SpecialFolders.Item("AllUsersStartMenu") "Fusion Setup.url"))
+$urlShortcut.TargetPath = "https://myarc.uwb.edu:81/FusionSetup.aspx"
+$urlShortcut.Save()
+If (Test-Path -Path "C:\ProgramData\Microsoft\Windows\Start Menu\Fusion Setup.url" -ErrorAction SilentlyContinue) {Write-Host "Success"} Else {Write-Host "Failure"}
